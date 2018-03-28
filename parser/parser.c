@@ -1,37 +1,34 @@
 #include <stdio.h>
 #include "../lexer/lex.h"
 
-/*
-	expr ::= term rest
-	rest ::= + expr | - expr | &
-	term ::= NUM_OR_ID
-*/
-
 void expr(void);
-void rest(void);
 void term(void);
 
 void expr(void)
 {
-  term();
-  rest();
-}
+  char op;
 
-void rest(void)
-{
-  if (match(EOI))
+  term();
+  if (match(MINUS))
+    op = '-';
+  else if (match(PLUS))
+    op = '+';
+
+  if (match(PLUS) || match(MINUS))
+    advance();
+  else
     return;
-  else if (match(PLUS) || match(MINUS))
-  {
-  	advance();
-  	expr();
-  }
+
+  expr();
+
+  printf(" %c", op);
 }
 
 void term(void)
 {
   if (match(NUM_OR_ID))
   {
+    printf(" %c", *yytext);
     advance();
   }
   else

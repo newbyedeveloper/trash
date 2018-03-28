@@ -52,6 +52,19 @@ int lex(void)
       case '\t':
       case ' ':	break;
 
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        return NUM_OR_ID;
+
+
       default:
         if (!isalnum(*current))
           fprintf(stderr, "Ignoring illegal input <%c>\n", *current);
