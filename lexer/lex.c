@@ -44,29 +44,22 @@ int lex(void)
 
       switch (*current)
       {
-      case EOF: return EOI;
-      case '+':	return PLUS;
-      case '-':	return MINUS;
+        case EOF: return EOI;
+        case '+':	return PLUS;
+        case '-':	return MINUS;
 
-      case '\n':
-      case '\t':
-      case ' ':	break;
+        case '\n':
+        case '\t':
+        case ' ':	break;
 
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case '6':
-      case '7':
-      case '8':
-      case '9': return NUM;
-
-      default:
-        if (!isdigit(*current))
-          fprintf(stderr, "Ignoring illegal input <%c>\n", *current);
-        break;
+        default:
+          if (isdigit(*current))
+            return NUM;
+          else
+          {
+            fprintf(stderr, "Ignoring illegal input <%c>\n", *current);
+            break;
+          }
       }
     }
   }
