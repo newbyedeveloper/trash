@@ -26,7 +26,7 @@ int lex(void)
       current = input_buffer;
       if (!fgets(input_buffer, 128, stdin))
       {
-		*current = '\0';
+		    *current = '\0';
         return EOI;
       }
 
@@ -52,18 +52,20 @@ int lex(void)
       case '\t':
       case ' ':	break;
 
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9': return NUM;
+
       default:
-        if (!isalnum(*current))
+        if (!isdigit(*current))
           fprintf(stderr, "Ignoring illegal input <%c>\n", *current);
-        else
-        {
-          while (isalnum(*current))
-            ++current;
-
-          yyleng = current - yytext;
-          return NUM_OR_ID;
-        }
-
         break;
       }
     }

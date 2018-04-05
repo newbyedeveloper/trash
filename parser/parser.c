@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include "../lexer/lex.h"
 
-/*    
-	expr ::= term rest
-	rest ::= + expr | - expr | &
-	term ::= NUM_OR_ID 
-*/
+//Grammar in grammar.txt
 
 void expr(void);
 void rest(void);
@@ -13,33 +9,33 @@ void term(void);
 
 void expr(void)
 {
-  while (!match(EOI))
-  {
-	term();
-    rest();
-  }
+  term();
+  rest();
 }
 
 void rest(void)
 {
-  if (match(PLUS) || match(MINUS))
+  char op;
+
+  while (match(PLUS) || match(MINUS))
   {
-	advance();
-    /*if (!match(NUM_OR_ID))
-      puts("Expected number or identifier");
-    else
-      printf("%2.*s", yytext, yyleng);
-    */
-	expr();
+    op = *yytext;
+    advance();
+    term();
+    printf("%c ", op);
+    //putchar(op);
   }  
 }
 
 void term(void)
 {
-  if (match(NUM_OR_ID))
+  char digit;
+  
+  if (match(NUM))
   {
-	advance();
+    digit = *yytext;
+    advance();
+    printf("%c ", digit);
+    //putchar(digit);    
   }
-  else
-    puts("Expected number or identifier");
 }

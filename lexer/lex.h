@@ -1,7 +1,7 @@
-#define EOI 0
-#define PLUS 1
-#define MINUS 2
-#define NUM_OR_ID 3
+#define EOI 0			// End of Input
+#define PLUS 1			// +
+#define MINUS 2			// -
+#define NUM 3			// Single Digit
 
 extern char *yytext;    //-- In lex.c
 extern int yyleng;      //||
