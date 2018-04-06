@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "../lexer/lex.h"
 
 //Grammar in grammar.txt
@@ -23,19 +24,20 @@ void rest(void)
     advance();
     term();
     printf("%c ", op);
-    //putchar(op);
-  }  
+  }
 }
 
 void term(void)
 {
-  char digit;
-  
+  char number[yyleng+1];
+
   if (match(NUM))
   {
-    digit = *yytext;
+    memcpy(number, yytext, yyleng);
+    number[yyleng] = '\0';
     advance();
-    printf("%c ", digit);
-    //putchar(digit);    
+    printf("%s ", number);
   }
+  else
+    puts("Expected number");
 }

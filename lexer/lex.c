@@ -54,7 +54,15 @@ int lex(void)
 
         default:
           if (isdigit(*current))
+          {
+            while (isdigit(*current))
+            {
+              current++;
+            }
+            yyleng = current - yytext;
+
             return NUM;
+          }
           else
           {
             fprintf(stderr, "Ignoring illegal input <%c>\n", *current);
